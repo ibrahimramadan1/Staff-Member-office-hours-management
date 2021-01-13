@@ -55,7 +55,6 @@ function newMessage() {
                 if (jsonData.success == 0) {
                     getChat(to, from);
                 }
-
                 else {
                     alert("message didn't sent");
                 }

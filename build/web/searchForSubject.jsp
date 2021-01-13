@@ -52,7 +52,7 @@
 %><div class="col-md-12">
     <div class="card">
         <div class="header">
-            <h4 class="title"><%=subject%> : <%=subjectName%></h4>
+            <h4 class="title" id="sub"><%=subject%> : <%=subjectName%></h4>
         </div>
         <div class="content">
             <form id="sendMessageToSubjet">
@@ -61,7 +61,7 @@
                         while (rs.next()) {
                             userName = rs.getString("userName");
                             role = rs.getString("role");
-                            %><div class="col-md-3">
+                    %><div class="col-md-3">
                         <div class="form-group">
                             <label><%=role%></label>
                             <input name="user" type="text" class="form-control" disabled placeholder="Company" value=<%=userName%>>
@@ -84,8 +84,44 @@
         </div>
     </div>
 </div>
-<%
+<script>
+    $("#sendMessageToSubjet").submit(function (e) {
+        e.preventDefault();
+        var message = $("#message").val();
+        var mFrom = $("#mFrom").val();
+        var sub = $("#sub").text();
+        var userName;
+        if (message.length == 0) {
+            alert("what's your message?");
+            $("#message").focus();
+            return false;
+        } else {
+            var user = document.getElementsByName("user");
+            for (var i = 0; i < user.length; i++) {
+                userName= user[i].value;
+                if (userName != mFrom) {
+                    $.ajax({
+                        type: "GET",
+                        url: 'sendMessage',
+                        data: {to: userName, from: mFrom, message: sub + " :" + message},
+                        success: function (response) {
+                            var jsonData = JSON.parse(response);
+                            if (jsonData.success == 0) {
+                                alert("message sent to" + userName);
+                            }
+                            else {
+                                alert("message didn't send to" + userName);
+                            }
+                        }
+                    });
+                }
+            }
+            return false;
         }
+    });
+</script>
+
+<%        }
     } catch (ClassNotFoundException | SQLException ex) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -94,5 +130,4 @@
         String replace = stackTrace.replace(System.getProperty("line.separator"), "<br/>\n");
         out.println(replace);
     }
-
 %>
