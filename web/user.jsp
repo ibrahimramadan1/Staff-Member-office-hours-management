@@ -12,9 +12,15 @@
     <%
         HttpSession s = null;
         String userName = null;
+        String name = null;
+        String email = null;
+        String role = null;
         try {
             s = request.getSession(true);
             userName = s.getAttribute("userName").toString();
+            name = s.getAttribute("name").toString();
+            email = s.getAttribute("email").toString();
+            role = s.getAttribute("role").toString();
         } catch (NullPointerException e) {
     %><script>alert('please login');
         location.href = 'index.html';</script><%
@@ -104,6 +110,7 @@
                 </nav>
                 <div class="content">
                     <div class="container-fluid">
+                        <!-- ================== Edit User Password ==================-->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
@@ -151,6 +158,134 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ====================================================-->                      
+                        <!-- ================== Edit User Name ==================-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Edit Profile Name</h4>
+                                    </div>
+                                    <div class="content">
+                                        <form id="updateName">
+                                            <div class="row">
+                                                <div class="alert alert-danger col-12 col-lg-12" id="badName">
+                                                    <strong>Error happen!</strong>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label>Username</label>
+                                                        <input name="user" id="user" type="text" class="form-control" disabled placeholder="Company" value=<%=userName%>>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Current Profile Name</label>
+                                                        <input name="oldName" id = "oldName" type="text" class="form-control" disabled placeholder="User" value=<%=name%>>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">New Name</label>
+                                                        <input name="newName" id="newName" type="text" class="form-control" placeholder="Your new name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Name</button>
+                                            <div class="clearfix"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ====================================================-->                      
+                        <!-- ================== Edit User Email ==================-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Edit Profile Email</h4>
+                                    </div>
+                                    <div class="content">
+                                        <form id="updateEmail">
+                                            <div class="row">
+                                                <div class="alert alert-danger col-12 col-lg-12" id="badEmail">
+                                                    <strong>Error happen!</strong>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label>Username</label>
+                                                        <input name="user" id="user" type="text" class="form-control" disabled placeholder="Company" value=<%=userName%>>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Current Profile Email</label>
+                                                        <input name="oldEmail" id = "oldName" type="text" class="form-control" disabled placeholder="User" value=<%=email%>>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">New Email</label>
+                                                        <input name="newEmail" id="newEmail" type="email" class="form-control" placeholder="example@gmail.com">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Email</button>
+                                            <div class="clearfix"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ====================================================-->                      
+                        <!-- ================== Edit User Role ==================-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h4 class="title">Edit Profile Role</h4>
+                                    </div>
+                                    <div class="content">
+                                        <form id="updateRole">
+                                            <div class="row">
+                                                <div class="alert alert-danger col-12 col-lg-12" id="badRole">
+                                                    <strong>Error happen!</strong>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label>Username</label>
+                                                        <input name="user" id="user" type="text" class="form-control" disabled placeholder="Company" value=<%=userName%>>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Current Profile Role</label>
+                                                        <input name="oldRole" id = "oldRole" type="text" class="form-control" disabled placeholder="User" value=<%=role%>>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon1">New role</span>
+                                                    </div>
+                                                    <select name="newRole" id="newRole" class="form-control">
+                                                        <option value="ST">student</option>
+                                                        <option value="DR">Doctor</option>
+                                                        <option value="TA">Teaching assistant</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-info btn-fill pull-right">Update Role</button>
+                                            <div class="clearfix"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                   
+
                     </div>
                 </div>
             </div>
