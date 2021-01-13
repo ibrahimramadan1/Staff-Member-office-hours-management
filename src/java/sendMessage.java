@@ -46,7 +46,6 @@ public class sendMessage extends HttpServlet {
             String to = request.getParameter("to");
             String from = request.getParameter("from");
             String message = request.getParameter("message");
-
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String url = "jdbc:mysql://localhost:3306/staffmanager";
