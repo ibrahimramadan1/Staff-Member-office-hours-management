@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/myStyle.css">
+    <link rel="icon" href="img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="background ">
+
+        <form class="container" method="post" id="loginForm">
+            <div class="p-4 Admins ml-auto mr-auto loginCard">
+                <div class="text-center">
+                    <h1>Login</h1>
+                </div>
+                <hr>
+                <div class="alert alert-danger col-12 col-lg-12" id="bad">
+                    <strong>Error happen!</strong>
+                </div>
+                <div class="AdminsDetails">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Username</span>
+                        </div>
+                        <input name="Auser" id="Auser" type="text" class="form-control" placeholder="Username">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Password</span>
+                        </div>
+                        <input name="Apassword" id="Apassword" type="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="text-right" style="margin-top: 20px;">
+                        <input type="submit" class="w-100 btn blueButton" value="Login">
+                    </div>
+                </div>
+                <div class='text-center'>
+                <p>Don't have an account?! <a href="register.html">Register</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/checkLogin.js"></script>
+</body>
+
+</html>
