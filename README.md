@@ -20,20 +20,20 @@ Staff member management is a website aims to connect Students, TAs and Doctor wi
    * Edit password
    * edit role
    * edit email
-   * <img src="imgs/main.png" alter="mainPanel">
+   * ![mainPanel](https://user-images.githubusercontent.com/36344914/104660062-846e3980-56ce-11eb-829d-e72fc2229fee.PNG)
    
 2. Chat with all Users
    * Not real time chat
-   * ![Main Panel](imgs/chat.png);
+   * ![chat](https://user-images.githubusercontent.com/36344914/104660766-d95e7f80-56cf-11eb-8e0f-f8896826e7b8.PNG)
    
 3. Find Contacts
    * Search by Username
-   * ![Main Panel](imgs/findPeople.png);
+   * ![findPeople](https://user-images.githubusercontent.com/36344914/104660178-c0a19a00-56ce-11eb-934a-bb1e5da0a713.PNG)
   
 4. Find Subjects
    * Search by subject ID
    * Send message to all DRs and TAs in this subject
-   * ![Main Panel](imgs/findSubject.png);
+   * ![findSubject](https://user-images.githubusercontent.com/36344914/104660209-d1521000-56ce-11eb-8ef1-dd7f1fe7f93f.PNG)
 
 ### Tasks
 - [x] Register (Send mail to user with his random password)
