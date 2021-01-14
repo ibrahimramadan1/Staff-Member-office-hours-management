@@ -4,6 +4,7 @@
     Author     : Hema
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.io.StringWriter"%>
 <%@page import="java.sql.SQLException"%>
@@ -24,7 +25,8 @@
     String userName = null;
     String role = null;
     String subjectName = null;
-
+    String recieverEmail = null;
+   
     try {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/staffmanager";
@@ -87,6 +89,7 @@
 <script>
     $("#sendMessageToSubjet").submit(function (e) {
         e.preventDefault();
+        var mailContent = "sendMasg";
         var message = $("#message").val();
         var mFrom = $("#mFrom").val();
         var sub = $("#sub").text();
@@ -108,6 +111,21 @@
                             var jsonData = JSON.parse(response);
                             if (jsonData.success == 0) {
                                 alert("message sent to" + userName);
+                                $.ajax({
+                                type: "GET",
+                                url: 'sendMail',
+                                data: {userName:mFrom, content:mailContent, email:userName},
+                                success: function (response) {
+                                    var jsonData = JSON.parse(response);
+                                    if (jsonData.success == 0) {
+                                        alert("Email sent to" + userName);
+                                    }
+                                    else {
+                                        alert("Email didn't send to" + userName);
+                                    }
+                                }
+                            });
+                              
                             }
                             else {
                                 alert("message didn't send to" + userName);
