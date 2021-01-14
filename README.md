@@ -20,7 +20,7 @@ Staff member management is a website aims to connect Students, TAs and Doctor wi
    * Edit password
    * edit role
    * edit email
-   * ![Main Panel](imgs/main.png);
+   * <img src="imgs/main.png" alter="mainPanel">
    
 2. Chat with all Users
    * Not real time chat
@@ -46,9 +46,8 @@ Staff member management is a website aims to connect Students, TAs and Doctor wi
 - [ ] DRs and TAs office hours (can put his office hours and location)
 - [ ] Office hours student Reservation
 
-### Contributers
-    * Atef Magdy [GitHub](https://github.com/Atef-Magdy).
-    * Ibrahim Ramadan [GitHub](https://github.com/ibrahimramadan1).
-
+### Contributers:
+* Ibrahim Ramadan [GitHub](https://github.com/ibrahimramadan1)
+* Atef Magdy [GitHub](https://github.com/Atef-Magdy)
 
 
