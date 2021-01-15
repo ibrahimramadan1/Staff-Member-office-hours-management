@@ -138,7 +138,6 @@
         }
     });
 </script>
-
 <%        }
     } catch (ClassNotFoundException | SQLException ex) {
         StringWriter sw = new StringWriter();
