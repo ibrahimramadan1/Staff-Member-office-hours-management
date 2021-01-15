@@ -33,7 +33,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <link rel="icon" href="img/logo.png">
-        <title>Edit your profile</title>
+        <title>manage office Hours</title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
         <!-- Bootstrap core CSS     -->
@@ -116,18 +116,7 @@
                         </div>
                     </div>
                 </nav>
-                <!--
-                
-           id int not null primary key auto_increment,
-   oh_date  date,
-    oh_from varchar(7),
-    oh_to varchar(7),
-    userName varchar(50),
-    type varchar(8),
-    address varchar(200)
-);
-                
-                -->
+               
                 <input id='mFrom' type='text' hidden value="<%=userName%>" />
                 <div class="content">
                     <div class="container-fluid">
@@ -279,16 +268,19 @@
                                 </div>
                             </div>
                         </div>
-                        </body>
-                        <!--   Core JS Files   -->
-                        <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
-                        <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
-                        <!--  Charts Plugin -->
-                        <script src="assets/js/chartist.min.js"></script>
+                    </div>
+                </div>
+                </body>
+                <!--   Core JS Files   -->
+                <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+                <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
-                        <!--  Notifications Plugin    -->
-                        <script src="assets/js/bootstrap-notify.js"></script>
-                        <script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
-                        <script src="js/manageOfficeHours.js"></script>
-                        </html>
+                <!--  Charts Plugin -->
+                <script src="assets/js/chartist.min.js"></script>
+
+                <!--  Notifications Plugin    -->
+                <script src="assets/js/bootstrap-notify.js"></script>
+                <script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+                <script src="js/manageOfficeHours.js"></script>
+                </html>
