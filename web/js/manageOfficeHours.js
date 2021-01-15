@@ -72,6 +72,7 @@ $(document).ready(function () {
         var todayDate = new Date();
         var userName = $("#mFrom").val();
         var daty = year + "-" + month + "-" + day;
+        var cancleContent = "cancelDay";
 
         if (isNaN(day) || isNaN(month) || isNaN(year)) {
             $('#bad1').show();
@@ -86,22 +87,43 @@ $(document).ready(function () {
         } else {
             e.preventDefault();
             $.ajax({
-                type: "POST",
-                url: 'cancelDay',
-                data: {userName: userName, date: daty},
-                success: function (response) {
-                    var jsonData = JSON.parse(response);
-                    if (jsonData.success == 0) {
-                        $('#bad1').hide();
-                        alert("your day is canceled");
+                    type: "POST",
+                    url: 'meetingMails',
+                                   // meeting owner               // meeting date
+                    data: {userName: userName, date:daty, content: cancleContent},
+                    success: function (response) {
+                        var jsonData = JSON.parse(response);
+                        if (jsonData.success == 0) {
+                            $('#bad1').hide();
+                            alert("canceled Mail sent");
+                        }
+                        else {
+                            $('#bad1').hide();
+                            alert("Cancel Mail not sent");
+                            return false;
+                        }
                     }
-                    else {
-                        $('#bad1').hide();
-                        alert("you don't have any meetings this day");
-                        return false;
-                    }
-                }
-            });
+                }).then(
+                        $.ajax({
+                        type: "POST",
+                        url: 'cancelDay',
+                        data: {userName: userName, date: daty},
+                        success: function (response) {
+                            var jsonData = JSON.parse(response);
+                            if (jsonData.success == 0) {
+                                $('#bad1').hide();
+                                alert("your day is canceled");
+                            }
+                            else {
+                                $('#bad1').hide();
+                                alert("you don't have any meetings this day");
+                                return false;
+                            }
+                        }
+                        })
+                    );
+                
+            
         }
     });
 });
