@@ -6,7 +6,6 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,10 +31,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Hema
+ * @author Atef Magdy
  */
-@WebServlet(urlPatterns = {"/deleteOH"})
-public class deleteOH extends HttpServlet {
+@WebServlet(urlPatterns = {"/checkReservation"})
+public class checkReservation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,8 +46,8 @@ public class deleteOH extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     public boolean sendMail(String to, String owner, String date) {
-        String content = "Sorry Your reservation with \nTA: " + owner + "\nIn date:" + date + "\nCancled";
-        String subject = "Meeting Cancled";
+        String content = "Yes you have meeting In date:" + date;
+        String subject = "Meeting Notification";
         /// The Sender Email And Passord
         String senderEmail = "noo6670@gmail.com";
         String senderPassword = "atef35420751";
@@ -90,72 +88,73 @@ public class deleteOH extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
- /* TODO output your page here. You may use following sample code. */
+
+            String userName = request.getParameter("userName");
+            String date = request.getParameter("date");
+
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date d1 = sdformat.parse(date);
+            java.sql.Date sqlDate = new java.sql.Date(d1.getTime());
+
             Connection Con = null;
             PreparedStatement stmt = null;
             String query = null;
             ResultSet rs = null;
-            String id = request.getParameter("id");
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String url = "jdbc:mysql://localhost:3306/staffmanager";
                 String user = "root";
                 String Password = "hema@1234";
                 Con = DriverManager.getConnection(url, user, Password);
-
-                query = "select userName, oh_date from officehrs where id=?";
+                query = "select id from reservations where userName=?";
                 stmt = Con.prepareStatement(query);
-                stmt.setString(1, id);
+                stmt.setString(1, userName);
                 rs = stmt.executeQuery();
-                rs.next();
-                String userName = rs.getString(1);
-                Date date = rs.getDate(2);
-
-                query = "select userName from reservations where id=?";
-                stmt = Con.prepareStatement(query);
-                stmt.setString(1, id);
-                rs = stmt.executeQuery();
-
-                while (rs.next()) {
-                    String recieverName = rs.getString(1);
-                    query = "select email from user where userName=?";
+                
+                while(rs.next()) {
+                    
+                    
+                    String id = rs.getString("id");
+                    
+                    query = "select id from officehrs where id=? and oh_date=?";
                     stmt = Con.prepareStatement(query);
-                    stmt.setString(1, recieverName);
-                    rs = stmt.executeQuery();
-                    if (rs.next()) {
-                        String mail = rs.getString(1);
-                        boolean check = sendMail(mail, userName, date.toString());
+                    stmt.setString(1, id);
+                    stmt.setDate(2,sqlDate);
+                    ResultSet result = stmt.executeQuery();
+                    
+                    if(result.next())
+                    {
+                        ResultSet r1;
+                        query = "select email from user where userName=?";
+                        stmt = Con.prepareStatement(query);
+                        stmt.setString(1, userName);
+                        r1 = stmt.executeQuery();
+                        if (r1.next()) {
+                            String mail = r1.getString(1);
+                            boolean check = sendMail(mail, userName, date);
+                            if (check) {
+                                out.print("{\"success\": 0}");
+                            } else {
+                                out.print("{\"success\": 1}");
+                            }
+                        }
                     }
-
+                    else
+                    {
+                        out.print("{\"success\": 5}");
+                    }
+                    
                 }
 
-                query = "delete from officehrs where id=?;";
-                stmt = Con.prepareStatement(query);
-                stmt.setString(1, id);
-                int counter = stmt.executeUpdate();
-                if (counter > 0) {
-                    out.print("<script>"
-                            + " alert('deleted successfully'); "
-                            + " location.href='officeHours.jsp';"
-                            + "</script>");
-                } else {
-                    out.print("<script>"
-                            + " alert('Error happen'); "
-                            + " location.href='officeHours.jsp';"
-                            + "</script>");
-                }
-            } catch (ClassNotFoundException | SQLException ex) {
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                ex.printStackTrace(pw);
-                String stackTrace = sw.toString();
-                String replace = stackTrace.replace(System.getProperty("line.separator"), "<br/>\n");
-                out.println(replace);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(checkMeetings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(checkMeetings.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }
 
@@ -171,7 +170,11 @@ public class deleteOH extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(checkReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -185,7 +188,11 @@ public class deleteOH extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(checkReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

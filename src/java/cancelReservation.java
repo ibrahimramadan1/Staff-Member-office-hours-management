@@ -10,7 +10,21 @@ import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,12 +47,54 @@ public class cancelReservation extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    public boolean sendMail(String to, String owner) {
+        String content = owner + " cancel your meeting";
+        String subject = "Cancel Notification";
+        /// The Sender Email And Passord
+        String senderEmail = "noo6670@gmail.com";
+        String senderPassword = "atef35420751";
+
+        Properties props = System.getProperties();
+        String host = "smtp.gmail.com";
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", senderEmail);
+        props.put("mail.smtp.password", senderPassword);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(senderEmail));
+            InternetAddress toAddress = new InternetAddress(to);
+            message.addRecipient(Message.RecipientType.TO, toAddress);
+
+            /// Message Content
+            message.setSubject(subject);
+            message.setText(content);
+
+            Transport transport;
+            transport = session.getTransport("smtp");
+            transport.connect(host, senderEmail, senderPassword);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+            return true;
+        } catch (AddressException ae) {
+            return false;
+        } catch (MessagingException ex) {
+            return false;
+        }
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             Connection Con = null;
+            Connection Con = null;
             PreparedStatement stmt = null;
             String query = null;
             String id = request.getParameter("id");
@@ -50,6 +106,34 @@ public class cancelReservation extends HttpServlet {
                 String user = "root";
                 String Password = "hema@1234";
                 Con = DriverManager.getConnection(url, user, Password);
+                ResultSet rs = null;
+
+                query = "select userName from officehrs where id=?";
+                stmt = Con.prepareStatement(query);
+                stmt.setString(1, id);
+                rs = stmt.executeQuery();
+                if (rs.next()) {
+
+                    String reciever = rs.getString(1);
+
+                    query = "select email from user where userName=?";
+                    stmt = Con.prepareStatement(query);
+                    stmt.setString(1, userName);
+                    rs = stmt.executeQuery();
+                    if (rs.next()) {
+                        String mail = rs.getString(1);
+                        boolean check = sendMail(mail, userName);
+                        if (check) {
+                            out.print("{\"success\": 0}");
+                        } else {
+                            out.print("{\"success\": 1}");
+                        }
+                    } else {
+                        out.print("{\"success\": 1}");
+                    }
+
+                }
+
                 query = "delete from reservations where id=? and userName=?;";
                 stmt = Con.prepareStatement(query);
                 stmt.setString(1, id);
@@ -61,11 +145,12 @@ public class cancelReservation extends HttpServlet {
                             + " location.href='myReservations.jsp';"
                             + "</script>");
                 } else {
-                     out.print("<script>"
+                    out.print("<script>"
                             + " alert('Error happen'); "
                             + " location.href='myReservations.jsp';"
                             + "</script>");
                 }
+
             } catch (ClassNotFoundException | SQLException ex) {
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);

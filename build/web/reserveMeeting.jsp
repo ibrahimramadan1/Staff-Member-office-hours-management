@@ -127,12 +127,6 @@
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="text-center">
-                                <button type="button" id="checkMeeting"class="btn btn-info btn-fill">check if i have meeting today</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label><span class="pe-7s-search"></span>search for TA/DR office hours by userName</label>

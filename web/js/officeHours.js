@@ -45,4 +45,21 @@ $("#checkMeeting").click(function (e) {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
     var daty = year + "-" + month + "-" + day;
+    var userName = $("#mFrom").val();
+    
+    e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: 'checkMeetings',
+                data: {userName: userName, date: daty},
+                success: function (response) {
+                    $("#urOH").html(response);
+                    if (jsonData.success == 0) {
+                        alert("You recieved an email");
+                    } 
+                    else {
+                        alert("You don't have meetings today ");
+                    }
+                }
+            });
 });
