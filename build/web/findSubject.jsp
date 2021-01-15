@@ -11,9 +11,12 @@
     <%
         HttpSession s = null;
         String userName = null;
+        String role = null;
+
         try {
             s = request.getSession(true);
             userName = s.getAttribute("userName").toString();
+            role = s.getAttribute("role").toString();
         } catch (NullPointerException e) {
     %><script>alert('please login');
         location.href = 'index.html';</script><%
@@ -74,6 +77,39 @@
                                 <p>find subject</p>
                             </a>
                         </li>
+                        <% if (role.equals("ST")) {
+                        %>
+                        <li class="">
+                            <a href="reserveMeeting.jsp">
+                                <i class="pe-7s-wristwatch"></i>
+                                <p>Reserve a Meeting</p>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="myReservations.jsp">
+                                <i class="pe-7s-hourglass"></i>
+                                <p>My Meetings</p>
+                            </a>
+                        </li>
+                        <%
+                        } else {
+                        %>
+                        <li class="">
+                            <a href="manageOfficeHours.jsp">
+                                <i class="pe-7s-wristwatch"></i>
+                                <p>manage office Hours</p>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="officeHours.jsp">
+                                <i class="pe-7s-hourglass"></i>
+                                <p>my office Hours</p>
+                            </a>
+                        </li>
+                        <%
+                            }
+                        %>
+
                     </ul>
                 </div>
             </div>
@@ -113,7 +149,7 @@
                             </div>
                         </div>
                         <div class="row" id="subject">
-                            
+
                         </div>
                     </div>
                 </div>

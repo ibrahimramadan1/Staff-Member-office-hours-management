@@ -89,6 +89,12 @@
                                 <p>manage office Hours</p>
                             </a>
                         </li>
+                         <li class="">
+                            <a href="officeHours.jsp">
+                                <i class="pe-7s-hourglass"></i>
+                                <p>my office Hours</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -12,19 +12,20 @@ $("#searchor").change(function () {
     var year = date.getFullYear();
     var daty = year + "-" + month + "-" + day;
     if (!value.trim()) {
-        $("#subject").html("");
+        $("#OH").html("");
     } else {
         $.ajax({
             type: "GET",
-            url: 'searchForSubject.jsp',
-            data: {search: value},
+            url: 'searchForOH.jsp',
+            data: {search: value,userName:userName,date:daty},
             success: function (response) {
-                $("#subject").html(response);
+                $("#OH").html(response);
             }
         });
-
+        
     }
 });
+
 
 
 
