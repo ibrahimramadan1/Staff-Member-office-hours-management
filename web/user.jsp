@@ -81,6 +81,39 @@
                                 <p>find subject</p>
                             </a>
                         </li>
+                        <% if (role.equals("ST")) {
+                        %>
+                        <li class="">
+                            <a href="reserveMeeting.jsp">
+                                <i class="pe-7s-wristwatch"></i>
+                                <p>Reserve a Meeting</p>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="myReservations.jsp">
+                                <i class="pe-7s-hourglass"></i>
+                                <p>My Meetings</p>
+                            </a>
+                        </li>
+                        <%
+                        } else {
+                        %>
+                        <li class="">
+                            <a href="manageOfficeHours.jsp">
+                                <i class="pe-7s-wristwatch"></i>
+                                <p>manage office Hours</p>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="officeHours.jsp">
+                                <i class="pe-7s-hourglass"></i>
+                                <p>my office Hours</p>
+                            </a>
+                        </li>
+                        <%
+                            }
+                        %>
+
                     </ul>
                 </div>
             </div>

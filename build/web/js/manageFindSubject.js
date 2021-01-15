@@ -5,6 +5,12 @@
  */
 $("#searchor").change(function () {
     var value = $(this).val();
+    var userName = $("#mFrom").val();
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var daty = year + "-" + month + "-" + day;
     if (!value.trim()) {
         $("#subject").html("");
     } else {
@@ -16,7 +22,7 @@ $("#searchor").change(function () {
                 $("#subject").html(response);
             }
         });
-        
+
     }
 });
 
