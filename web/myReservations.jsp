@@ -254,5 +254,5 @@
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
     <script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
-    <script src="js/reserveMeeting.js"></script>
+    <script src="js/myReservation.js"></script>
 </html>
