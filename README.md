@@ -7,7 +7,7 @@ Staff member management is a website aims to connect Students, TAs and Doctor wi
    - (html, css, bootstrab)
    - (js, jQuery, ajax)
 2. Back-End
-   - Java
+   - Java (JSP/SERVLET)
    - mySql
 3. Needed Libraries
    - javax.json-1.0
@@ -43,8 +43,8 @@ Staff member management is a website aims to connect Students, TAs and Doctor wi
 - [x] Find Peoople (Search by Username)
 - [x] Find Subject (Search by subject id and message to all DRs and TAs in this subject)
 - [x] Registeration, Message, Meeting notification mail
-- [ ] DRs and TAs office hours (can put his office hours and location)
-- [ ] Office hours student Reservation
+- [x] DRs and TAs office hours (can put his office hours and location)
+- [x] Office hours student Reservation
 
 ### Contributers:
 * Ibrahim Ramadan [GitHub](https://github.com/ibrahimramadan1)
